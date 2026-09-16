@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Plant Health
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="hero small-hero">
+
+    <div class="hero-content">
+
+        <h1>
+            🍃 Plant Health Assistant
+        </h1>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<section class="result-main">
+
+    <div class="advice-card">
+
+        <h2>
+            🔍 Observation
+        </h2>
+
+        <p>
+            {{ result }}
+        </p>
+
+    </div>
+
+
+    <div class="advice-card">
+
+        <h2>
+            ⚠️ Important
+        </h2>
+
+        <p>
+            A visible symptom alone cannot confirm a
+            plant disease. Proper diagnosis may require
+            a plant pathologist, agricultural officer,
+            laboratory test or validated disease model.
+        </p>
+
+    </div>
+
+
+    <a
+        href="/"
+        class="back-button"
+    >
+        ← Back to Dashboard
+    </a>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+    🌱 Smart Agriculture Assistant
+
+</footer>
+
+
+</body>
+
+</html>

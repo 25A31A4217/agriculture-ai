@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AgroBrain AI</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="tag">
+                AI • FARM • DATA
+            </div>
+
+            <h1>
+                🌱 AgroBrain AI
+            </h1>
+
+    <div style="text-align: center; margin: 30px 0; padding: 10px; background-color: #f1f1f1; border-top: 1px solid #ccc;">
+       <form action="/" method="POST" id="langForm">
+            <label for="lang" style="font-weight: bold; color: black; margin-right: 5px;">Language / భాష:</label>
+            <select name="lang" id="lang" onchange="document.getElementById('langForm').submit()">
+                <option value="en" {% if lang == 'en' %}selected{% endif %}>English</option>
+                <option value="te" {% if lang == 'te' %}selected{% endif %}>తెలుగు</option>
+            </select>
+        </form>
+    </div>
+            <p>
+                Intelligent support for crop selection,
+                weather, irrigation and plant health.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- =========================================
+             ERROR MESSAGE
+        ========================================== -->
+
+        {% if error %}
+
+        <div class="alert">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- =========================================
+             CROP RECOMMENDATION
+        ========================================== -->
+
+        <section class="card">
+
+            <h2>
+                🌾 AI Crop Recommendation
+            </h2>
+
+            <p class="muted">
+                Enter soil and climate information
+                to get a crop recommendation.
+            </p>
+
+
+            <form action="/recommend"
+                  method="POST">
+
+
+                <div class="two-column">
+
+
+                    <!-- Temperature -->
+
+                    <div>
+
+                        
+                        <label>
+    {% if lang == 'te' %} ఉష్ణోగ్రత / Temperature (°C) 🌡️{% else %} Temperature (°C) {% endif %}
+</label>
+                    
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="temperature"
+                            placeholder="28"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Humidity -->
+
+                    <div>
+
+                    
+                            <label>
+    {% if lang == 'te' %} తేమ శాతం / Humidity (%)💧 {% else %} Humidity (%) {% endif %}
+</label>
+                        
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="humidity"
+                            placeholder="70"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Soil pH -->
+
+                    <div>
+
+                        
+                        <label>
+    {% if lang == 'te' %} నేల పి.హెచ్ / Soil pH🌱 {% else %} Soil pH {% endif %}
+                        </label>
+                        
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="ph"
+                            placeholder="6.8"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Nitrogen -->
+
+                    <div>
+
+                        
+                        <label>
+    {% if lang == 'te' %} నైట్రోజన్ / Nitrogen (N)🌱 {% else %} Nitrogen (N) {% endif %}
+                       </label>
+
+                        <input
+                            type="number"
+                            name="nitrogen"
+                            placeholder="70"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Phosphorus -->
+
+                    <div>
+
+                        
+                            <label>
+    {% if lang == 'te' %} భాస్వరం / Phosphorus (P) 🌱{% else %} Phosphorus (P) {% endif %}
+</label>
+                        
+
+                        <input
+                            type="number"
+                            name="phosphorus"
+                            placeholder="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Potassium -->
+
+                    <div>
+
+                        
+                            <label>
+    {% if lang == 'te' %} పొటాషియం / Potassium (K) 🌱{% else %} Potassium (K) {% endif %}
+</label>
+                        
+
+                        <input
+                            type="number"
+                            name="potassium"
+                            placeholder="40"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Rainfall -->
+
+                    <div>
+
+                        
+                            <label>
+    {% if lang == 'te' %}వర్షపాతం / Rainfall🌧️ (mm):{% else %}Rainfall (mm):{% endif %}
+</label>
+                        
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="rainfall"
+                            placeholder="15"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+             <button type="submit">
+    🌱 {% if lang == 'te' %} పంట సిఫార్సును పొందండి {% else %} Get AI Recommendation {% endif %}
+</button>
+
+
+            </form>
+<!-- లైన్ 225 లోని </form> కింద ఈ కోడ్ యాడ్ చేయండి -->
+        </form> 
+
+        <!-- కొత్త ఫెర్టిలైజర్ సెక్షన్ ఇక్కడి నుండి మొదలవుతుంది -->
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ccc;">
+        
+        <div class="fertilizer-section">
+            <h2>
+    {% if lang == 'te' %} ఎరువుల సిఫార్సు / Fertilizer Recommendation {% else %} Fertilizer Recommendation {% endif %}
+</h2>
+            <form action="/predict_fertilizer" method="POST">
+                <div>
+                    <label>
+    {% if lang == 'te' %} 🧪 నైట్రోజన్ / Nitrogen (N): {% else %} Nitrogen (N): {% endif %}
+</label>
+                    <input type="number" name="nitrogen" placeholder="e.g. 40" required>
+                </div>
+                <div>
+                    <label>
+    {% if lang == 'te' %} 🧪 భాస్వరం / Phosphorous (P): {% else %} Phosphorous (P): {% endif %}
+</label>
+                    <input type="number" name="phosphorous" placeholder="e.g. 50" required>
+                </div>
+                <div>
+                    <label>
+    {% if lang == 'te' %} 🧪 పొటాషియం / Potassium (K): {% else %} Potassium (K): {% endif %}
+</label>
+                    <input type="number" name="potassium" placeholder="e.g. 35" required>
+                </div>
+                <button type="submit">
+    🌾 {% if lang == 'te' %} ఎరువుల సిఫార్సును పొందండి {% else %} Get Fertilizer Recommendation {% endif %}
+</button>
+            </form>
+
+            <!-- రిజల్ట్ చూపించడానికి -->
+            {% if prediction_text %}
+                <div style="margin-top: 20px; font-weight: bold; color: #2e7d32;">
+                    {{ prediction_text }}
+                </div>
+            {% endif %}
+        </div>
+        </section>
+
+
+
+        <!-- =========================================
+             LIVE WEATHER
+        ========================================== -->
+<!-- 1. LIVE WEATHER SECTION -->
+<section class="card">
+    <h2>
+        {% if lang == 'te' %} 🌦️ లైవ్ వాతావరణం / Live Weather {% else %} Live Weather {% endif %}
+    </h2>
+    <p class="muted">
+        {% if lang == 'te' %} ప్రస్తుత వాతావరణాన్ని చూడటానికి నగరం పేరును నమోదు చేయండి. {% else %} Enter a city to view current weather. {% endif %}
+    </p>
+    
+    <form action="/weather" method="POST">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <input 
+            type="text" 
+            name="city" 
+            placeholder="{% if lang == 'te' %}ఉదాహరణ: కాకినాడ{% else %}Example: Kakinada{% endif %}" 
+            required>
+       <!-- బటన్ ట్యాగ్ విడిగా క్లీన్ గా ఉండాలి -->
+        <button type="submit">
+            🌦️ {% if lang == 'te' %} వాతావరణాన్ని తనిఖీ చేయండి {% else %} Check Weather {% endif %}
+        </button>
+    </form>
+
+    <!-- రిజల్ట్ బాక్స్ ఎప్పుడూ ఫామ్ మరియు బటన్ కి బయట కింద ఉండాలి -->
+    {% if weather_text %}
+        <div style="margin-top: 15px; padding: 10px; background-color: #e3f2fd; border-left: 5px solid #2196f3; border-radius: 4px; text-align: left;">
+            <p style="font-weight: bold; color: #1565c0; margin: 0;">{{ weather_text }}</p>
+        </div>
+    {% endif %}
+    </form>
+</section>
+
+<!-- 2. PLANT HEALTH ASSISTANT SECTION -->
+<section class="card">
+    <h2>
+        {% if lang == 'te' %} 🩺 పంట ఆరోగ్య సహాయకుడు / Plant Health Assistant {% else %} Plant Health Assistant {% endif %}
+    </h2>
+    <p>
+        {% if lang == 'te' %} ప్రాథమిక విద్యా మార్గదర్శకత్వం కోసం పంటకు ఉన్న లక్షణాన్ని ఎంచుకోండి. {% else %} Select a visible symptom for basic educational guidance. {% endif %}
+    </p>
+
+    <form action="/disease" method="POST">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <select name="symptom">
+            <option value="Yellow leaves">
+                {% if lang == 'te' %} 🍂 ఆకులు పసుపు రంగులోకి మారడం / Yellow leaves {% else %} Yellow leaves {% endif %}
+            </option>
+            <option value="Brown spots">
+                {% if lang == 'te' %} 🟤 ఆకులపై గోధుమ రంగు మచ్చలు / Brown spots {% else %} Brown spots on leaves {% endif %}
+            </option>
+            <option value="White powdery patches">
+                {% if lang == 'te' %} ⚪ ఆకులపై తెల్లటి బూజు మచ్చలు / White patches {% else %} White powdery patches {% endif %}
+            </option>
+            <option value="Wilting stem">
+                {% if lang == 'te' %} 🥀 కాండం వాడిపోవడం లేదా ఎండిపోవడం / Wilting stem {% else %} Wilting or drying stem {% endif %}
+            </option>
+        </select>
+        <button type="submit">
+            {% if lang == 'te' %} లక్షణాన్ని విశ్లేషించండి {% else %} Analyze Symptom {% endif %}
+        </button>
+    </form>
+</section>
+
+<!-- 3. FARMER ASSISTANT SECTION -->
+<section class="card">
+    </div> 
+</section> 
+
+<!-- ఇక్కడ యాడ్ చేయండి (Line 354) -->
+<div style="text-align: center; margin: 30px auto;">
+   
+</div>
+
+<!-- 3. FARMER ASSISTANT SECTION --> <!-- 355 -->
+<section class="card"> <!-- 356 -->
+    <h2>
+        {% if lang == 'te' %} 👨‍🌾 రైతు సహాయకుడు / Farmer Assistant {% else %} Farmer Assistant {% endif %}
+    </h2>
+    <p class="muted">
+        {% if lang == 'te' %} మీ పొలం గురించి ఏదైనా సాధారణ ప్రశ్న అడగండి. {% else %} Ask a simple question about your farm. {% endif %}
+    </p>
+    
+    <form action="/chat" method="POST">
+        <input type="hidden" name="lang" value="{{ lang }}">
+        <input 
+            type="text" 
+            name="message" 
+            placeholder="{% if lang == 'te' %}ఉదాహరణ: నేను ఎప్పుడు నీరు పెట్టాలి?{% else %}Example: When should I irrigate?{% endif %}" 
+            required>
+        <button type="submit">
+            {% if lang == 'te' %} సహాయకుడిని అడగండి {% else %} Ask Assistant {% endif %}
+        </button>
+    </form>
+
+    <!-- బ్యాకెండ్ నుండి వచ్చే సమాధానాన్ని ఇక్కడ చూపిస్తాము -->
+    {% if response %}
+        <div style="margin-top: 20px; padding: 15px; background-color: #f1f8e9; border-left: 5px solid #4caf50; border-radius: 4px; text-align: left;">
+            <p style="font-weight: bold; color: #2e7d32; margin: 0 0 5px 0;">
+                {% if lang == 'te' %} సమాధానం: {% else %} Answer: {% endif %}
+            </p>
+            <p style="color: #333; margin: 0;">{{ response }}</p>
+        </div>
+    {% endif %}
+</section>
+       
+        <!-- =========================================
+             PROJECT DISCLAIMER
+        ========================================== -->
+
+        <div class="disclaimer">
+
+            ⚠️ This college-project prototype provides
+            educational guidance only.
+
+            Crop, fertilizer, irrigation and
+            plant-health decisions should be checked
+            against local agricultural advice,
+            soil conditions and weather conditions.
+
+        </div>
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        🌱 Smart Agriculture Assistant
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Farm Analysis
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="hero small-hero">
+
+    <div class="hero-content">
+
+        <h1>
+            🤖 AI Farm Analysis
+        </h1>
+
+        <p>
+            Your agriculture recommendation
+        </p>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+<section class="result-main">
+
+
+    <div class="crop-result">
+
+        <span>
+            Recommended Crop
+        </span>
+
+        <h1>
+            🌱 {{ crop }}
+        </h1>
+
+    </div>
+
+
+    <div class="result-grid">
+
+
+        <div class="info-card">
+
+            <h3>
+                🌡️ Temperature
+            </h3>
+
+            <p>
+                {{ temperature }} °C
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                💧 Humidity
+            </h3>
+
+            <p>
+                {{ humidity }} %
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                🧪 Soil pH
+            </h3>
+
+            <p>
+                {{ ph }}
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>
+                🌧️ Rainfall
+            </h3>
+
+            <p>
+                {{ rainfall }} mm
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="advice-card">
+
+        <h2>
+            💧 Irrigation Advice
+        </h2>
+
+        <p>
+            {{ irrigation }}
+        </p>
+
+    </div>
+
+
+    <div class="advice-card">
+
+        <h2>
+            🧪 Fertilizer Guidance
+        </h2>
+
+        <p>
+            {{ fertilizer }}
+        </p>
+
+    </div>
+
+
+    <div class="advice-card">
+
+        <h2>
+            🌱 Crop Care
+        </h2>
+
+        <p>
+            {{ crop_advice }}
+        </p>
+
+    </div>
+
+
+    <div class="nutrients">
+
+        <h2>
+            Soil Nutrients
+        </h2>
+
+        <p>
+            N: <strong>{{ nitrogen }}</strong>
+            &nbsp; | &nbsp;
+            P: <strong>{{ phosphorus }}</strong>
+            &nbsp; | &nbsp;
+            K: <strong>{{ potassium }}</strong>
+        </p>
+
+    </div>
+
+
+    <a
+        href="/"
+        class="back-button"
+    >
+        ← Back to Dashboard
+    </a>
+
+
+</section>
+
+
+<div class="disclaimer">
+
+    ⚠️ Prototype output for educational purposes.
+    Use local soil tests and qualified agricultural
+    guidance for real farming decisions.
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+    🌱 Smart Agriculture Assistant
+
+</footer>
+
+
+</body>
+
+</html>
